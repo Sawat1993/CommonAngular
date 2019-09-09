@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AsyncHttpService } from '../../provider/async-http.service';
 
 @Component({
   selector: 'app-home',
@@ -7,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  constructor(private asyncHttpService: AsyncHttpService) { }
 
   ngOnInit() {
+    this.asyncHttpService.get('./assets/data/data.json').subscribe(data => {
+      console.log(data);
+    });
   }
 
 }
