@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
 /** Importing Components */
 import { AppComponent } from './app.component';
@@ -14,7 +15,6 @@ import { FeatureModule } from './feature/feature.module';
 import { SharedModule } from './shared/shared.module';
 
 /** Import Services */
-import { AsyncHttpService } from './provider/async-http.service';
 import { TokenInterceptor } from './provider/http-interceptor.service';
 
 @NgModule({
@@ -29,7 +29,11 @@ import { TokenInterceptor } from './provider/http-interceptor.service';
     FeatureModule,
     SharedModule
   ],
-  providers: [],
+  providers: [{
+    provide: HTTP_INTERCEPTORS,
+    useClass: TokenInterceptor,
+    multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

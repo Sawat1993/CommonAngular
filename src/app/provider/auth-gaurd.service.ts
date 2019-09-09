@@ -5,12 +5,12 @@ import { Router, CanActivate } from '@angular/router';
     providedIn: 'root'
 })
 export class AuthGuardService implements CanActivate {
-  constructor(public router: Router) {}
-  canActivate(): boolean {
-    if (false) {
-      this.router.navigate(['login']);
-      return false;
+    constructor(public router: Router) { }
+    canActivate(): boolean {
+        if (sessionStorage.getItem('token') && sessionStorage.getItem('token').length > 0) {
+            return true;
+        }
+        this.router.navigate(['login']);
+        return false;
     }
-    return true;
-  }
 }
